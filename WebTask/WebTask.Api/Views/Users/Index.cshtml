@@ -1,0 +1,43 @@
+﻿@model WebTask.Api.Models.Users.UsersViewModel
+
+<form id='form1' method="post">
+    <button type="submit" class="btn-primary" asp-controller="Users" asp-action="Block">Block</button>
+    <button type="submit" class="btn-secondary" asp-controller="Users" asp-action="Unblock">Unblock</button>
+    <button type="submit" class="btn-danger" asp-controller="Users" asp-action="Delete">Delete</button>
+
+    <table class="table table-bordered table-checks">
+        <tr>
+            <th><input type="checkbox" name="cb_all"></th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Registration Date</th>
+            <th>Last Login</th>
+            <th>Status</th>
+        </tr>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td><input type="checkbox" class="qwe" name="selectedUsers" value="@user.Id" /></td>
+                <td>@Html.DisplayFor(item => user.UserName)</td>
+                <td>@Html.DisplayFor(item => user.Email)</td>
+                <td>@Html.DisplayFor(item => user.RegistrationDate)</td>
+                <td>@Html.DisplayFor(item => user.LastLoginDate)</td>
+                <td>@Html.DisplayFor(item => user.StatusString)</td>
+            </tr>
+        }
+    </table>
+</form>
+<script>
+    var f = document.getElementById('form1');
+    f.cb_all.onchange = function (e) {
+        var el = e.target || e.srcElement;
+        var qwe = el.form.getElementsByClassName('qwe');
+        for (var i = 0; i < qwe.length; i++) {
+            if (el.checked) {
+                qwe[i].checked = true;
+            } else {
+                qwe[i].checked = false;
+            }
+        }
+    }
+</script>
