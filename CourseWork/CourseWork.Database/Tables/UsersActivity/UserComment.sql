@@ -1,0 +1,9 @@
+﻿CREATE TABLE [dbo].[UserComment]
+(
+	[Id] INT NOT NULL IDENTITY(1,1),
+	[CollectionItemId] INT NOT NULL,
+	[UserId] NVARCHAR(450) NOT NULL,
+	[Text] NVARCHAR(MAX) NOT NULL,
+	[Date] DATETIME NOT NULL,
+	CONSTRAINT pk_UserComment PRIMARY KEY([Id])
+)

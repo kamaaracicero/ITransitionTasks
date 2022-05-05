@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>CourseWork.Database</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{acbcf1d6-5582-40e7-a1ec-5393b46e2557}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>CourseWork.Database</RootNamespace>
+    <AssemblyName>CourseWork.Database</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="Tables" />
+    <Folder Include="ForeignKeys" />
+    <Folder Include="Tables\AdditionalFields" />
+    <Folder Include="Tables\UsersActivity" />
+    <Folder Include="Tables\Identity" />
+    <Folder Include="ForeignKeys\Identity" />
+    <Folder Include="Index" />
+    <Folder Include="Index\Identity" />
+    <Folder Include="ForeignKeys\UsersActivity" />
+    <Folder Include="ForeignKeys\AdditionalFields" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Tables\Collection.sql" />
+    <Build Include="Tables\AdditionalFields\BooleanField.sql" />
+    <Build Include="Tables\AdditionalFields\DateField.sql" />
+    <Build Include="Tables\AdditionalFields\StringField.sql" />
+    <Build Include="Tables\AdditionalFields\TextField.sql" />
+    <Build Include="Tables\CollectionItem.sql" />
+    <Build Include="Tables\CollectionItemTag.sql" />
+    <Build Include="Tables\CollectionTheme.sql" />
+    <Build Include="Tables\UsersActivity\UserComment.sql" />
+    <Build Include="Tables\UsersActivity\UserLike.sql" />
+    <Build Include="Tables\Identity\AspNetRoleClaims.sql" />
+    <Build Include="Tables\Identity\AspNetRoles.sql" />
+    <Build Include="Tables\Identity\AspNetUserClaims.sql" />
+    <Build Include="Tables\Identity\AspNetUserLogins.sql" />
+    <Build Include="Tables\Identity\AspNetUserRoles.sql" />
+    <Build Include="Tables\Identity\AspNetUsers.sql" />
+    <Build Include="Tables\Identity\AspNetUserTokens.sql" />
+    <Build Include="ForeignKeys\Identity\FK_AspNetRoleClaims_AspNetRoles_RoleId.sql" />
+    <Build Include="ForeignKeys\Identity\FK_AspNetUserClaims_AspNetUsers_UserId.sql" />
+    <Build Include="ForeignKeys\Identity\FK_AspNetUserLogins_AspNetUsers_UserId.sql" />
+    <Build Include="ForeignKeys\Identity\FK_AspNetUserRoles_AspNetRoles_RoleId.sql" />
+    <Build Include="ForeignKeys\Identity\FK_AspNetUserRoles_AspNetUsers_UserId.sql" />
+    <Build Include="ForeignKeys\Identity\FK_AspNetUserTokens_AspNetUsers_UserId.sql" />
+    <Build Include="Index\Identity\EmailIndex.sql" />
+    <Build Include="Index\Identity\IX_AspNetRoleClaims_RoleId.sql" />
+    <Build Include="Index\Identity\IX_AspNetUserClaims_UserId.sql" />
+    <Build Include="Index\Identity\IX_AspNetUserLogins_UserId.sql" />
+    <Build Include="Index\Identity\IX_AspNetUserRoles_RoleId.sql" />
+    <Build Include="Index\Identity\RoleNameIndex.sql" />
+    <Build Include="Index\Identity\UserNameIndex.sql" />
+    <Build Include="ForeignKeys\FK_CollectionItem_Collection_CollectionId.sql" />
+    <Build Include="ForeignKeys\FK_CollectionItemTag_CollectionItem_CollectionItemId.sql" />
+    <Build Include="ForeignKeys\UsersActivity\FK_UserComment_AspNetUsers_UserId.sql" />
+    <Build Include="ForeignKeys\UsersActivity\FK_UserComment_CollectionItem_CollectionItemId.sql" />
+    <Build Include="ForeignKeys\UsersActivity\FK_UserLike_AspNetUsers_UserId.sql" />
+    <Build Include="ForeignKeys\UsersActivity\FK_UserLike_CollectionItem_CollectionItemId.sql" />
+    <Build Include="ForeignKeys\AdditionalFields\FK_BooleanField_CollectionItem_CollectionItemId.sql" />
+    <Build Include="ForeignKeys\AdditionalFields\FK_DateField_CollectionItem_CollectionItemId.sql" />
+    <Build Include="ForeignKeys\AdditionalFields\FK_StringField_CollectionItem_CollectionItemId.sql" />
+    <Build Include="ForeignKeys\AdditionalFields\FK_TextField_CollectionItem_CollectionItemId.sql" />
+    <Build Include="ForeignKeys\FK_Collection_CollectionTheme_CollectionThemeId.sql" />
+    <Build Include="Tables\AdditionalFields\IntField.sql" />
+  </ItemGroup>
+</Project>

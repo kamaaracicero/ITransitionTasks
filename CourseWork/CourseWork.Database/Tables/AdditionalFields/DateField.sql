@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[DateField]
+(
+	[Id] INT NOT NULL IDENTITY(1,1),
+	[CollectionItemId] INT NOT NULL,
+	[Name] NVARCHAR(100) NOT NULL,
+	[Value] DATETIME NOT NULL,
+	CONSTRAINT pk_DateField PRIMARY KEY([Id])
+)
