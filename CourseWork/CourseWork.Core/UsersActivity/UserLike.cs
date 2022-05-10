@@ -10,7 +10,7 @@
         }
 
         public UserLike()
-            : this(0, 0, null)
+            : this(0, 0, string.Empty)
         {
         }
 
@@ -41,12 +41,7 @@
                 return false;
             }
 
-            if (obj.GetHashCode() == this.GetHashCode())
-            {
-                return true;
-            }
-
-            return false;
+            return obj.GetHashCode() == GetHashCode();
         }
 
         public override string ToString() => Id.ToString();

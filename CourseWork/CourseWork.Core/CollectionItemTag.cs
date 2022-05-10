@@ -2,15 +2,15 @@
 {
     public sealed class CollectionItemTag : object, IDataEntity
     {
-        public CollectionItemTag(int id, int collectionItemId, string name)
+        public CollectionItemTag(int id, int collectionItemId, int tagId)
         {
             Id = id;
             CollectionItemId = collectionItemId;
-            Name = name;
+            TagId = tagId;
         }
 
         public CollectionItemTag()
-            : this(0, 0, null)
+            : this(0, 0, 0)
         {
         }
 
@@ -18,7 +18,7 @@
 
         public int CollectionItemId { get; set; }
 
-        public string Name { get; set; }
+        public int TagId { get; set; }
 
         public void Update(object update)
         {
@@ -29,10 +29,12 @@
 
             CollectionItemTag temp = update as CollectionItemTag;
             CollectionItemId = temp.CollectionItemId;
-            Name = temp.Name;
+            TagId = temp.TagId;
         }
 
-        public override int GetHashCode() => Id ^ CollectionItemId ^ Name.GetHashCode();
+        public override int GetHashCode() => Id
+            ^ CollectionItemId
+            ^ TagId;
 
         public override bool Equals(object obj)
         {
@@ -41,14 +43,9 @@
                 return false;
             }
 
-            if (obj.GetHashCode() == this.GetHashCode())
-            {
-                return true;
-            }
-
-            return false;
+            return obj.GetHashCode() == GetHashCode();
         }
 
-        public override string ToString() => Name;
+        public override string ToString() => Id.ToString();
     }
 }

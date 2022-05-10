@@ -1,39 +1,39 @@
 ﻿namespace CourseWork.Core
 {
-    public sealed class CollectionTheme : object, IDataEntity
+    public sealed class Tag : object, IDataEntity
     {
-        public CollectionTheme(int id, string theme)
+        public Tag(int id, string name)
         {
             Id = id;
-            Theme = theme;
+            Name = name;
         }
 
-        public CollectionTheme()
+        public Tag()
             : this(0, string.Empty)
         {
         }
 
         public int Id { get; set; }
 
-        public string Theme { get; set; }
+        public string Name { get; set; }
 
         public void Update(object update)
         {
-            if (update == null || !(update is CollectionTheme))
+            if (update == null || !(update is Tag))
             {
                 return;
             }
 
-            CollectionTheme temp = update as CollectionTheme;
-            Theme = temp.Theme;
+            Tag temp = update as Tag;
+            Name = temp.Name;
         }
 
         public override int GetHashCode() => Id
-            ^ Theme.GetHashCode();
+            ^ Name.GetHashCode();
 
         public override bool Equals(object obj)
         {
-            if (obj == null || !(obj is CollectionTheme))
+            if (obj == null || !(obj is Tag))
             {
                 return false;
             }

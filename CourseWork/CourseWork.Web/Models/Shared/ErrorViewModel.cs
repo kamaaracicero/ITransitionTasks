@@ -1,4 +1,4 @@
-namespace CourseWork.Web.Models
+namespace CourseWork.Web.Models.Shared
 {
     public class ErrorViewModel
     {

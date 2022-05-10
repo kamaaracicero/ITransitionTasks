@@ -1,4 +1,4 @@
-﻿@model CollectionsViewModel
+﻿@model CourseWork.Web.Models.Collections.CollectionsViewModel
 @using Microsoft.AspNetCore.Mvc.Localization
 
 @inject IViewLocalizer Localizer
@@ -8,10 +8,11 @@
     <table>
         <thead>
             <tr>
-                <th>@Localizer["Image"]</th>
+                <th>@Localizer["CollectionImage"]</th>
+                <th>@Localizer["CollectionTheme"]</th>
                 <th>@Localizer["CollectionTitle"]</th>
-                <th>@Localizer["Theme"]</th>
-                <th>@Localizer["Author"]</th>
+                <th>@Localizer["CollectionDescription"]</th>
+                <th>@Localizer["CollectionAuthor"]</th>
             </tr>
         </thead>
         <tbody>

@@ -12,7 +12,7 @@
         }
 
         public UserComment()
-            : this(0, 0, null, null, System.DateTime.Now)
+            : this(0, 0, string.Empty, string.Empty, System.DateTime.Now)
         {
         }
 
@@ -53,12 +53,7 @@
                 return false;
             }
 
-            if (obj.GetHashCode() == this.GetHashCode())
-            {
-                return true;
-            }
-
-            return false;
+            return obj.GetHashCode() == GetHashCode();
         }
 
         public override string ToString() => UserId + ": " + Text;

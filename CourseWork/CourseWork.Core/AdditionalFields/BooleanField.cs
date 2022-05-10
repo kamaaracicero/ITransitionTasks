@@ -11,7 +11,7 @@
         }
 
         public BooleanField()
-            : this(0, 0, null, false)
+            : this(0, 0, string.Empty, false)
         {
         }
 
@@ -36,7 +36,10 @@
             Value = temp.Value;
         }
 
-        public override int GetHashCode() => Id ^ CollectionItemId ^ Name.GetHashCode() ^ Value.GetHashCode();
+        public override int GetHashCode() => Id
+            ^ CollectionItemId
+            ^ Name.GetHashCode()
+            ^ Value.GetHashCode();
 
         public override bool Equals(object obj)
         {
@@ -45,12 +48,7 @@
                 return false;
             }
 
-            if (obj.GetHashCode() == this.GetHashCode())
-            {
-                return true;
-            }
-
-            return false;
+            return obj.GetHashCode() == GetHashCode();
         }
 
         public override string ToString() => Name + ": " + Value.ToString();

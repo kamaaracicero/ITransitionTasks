@@ -10,7 +10,7 @@
         }
 
         public CollectionItem()
-            : this(0, 0, null)
+            : this(0, 0, string.Empty)
         {
         }
 
@@ -32,7 +32,9 @@
             Name = temp.Name;
         }
 
-        public override int GetHashCode() => Id ^ CollectionId ^ Name.GetHashCode();
+        public override int GetHashCode() => Id
+            ^ CollectionId
+            ^ Name.GetHashCode();
 
         public override bool Equals(object obj)
         {
@@ -41,12 +43,7 @@
                 return false;
             }
 
-            if (obj.GetHashCode() == this.GetHashCode())
-            {
-                return true;
-            }
-
-            return false;
+            return obj.GetHashCode() == GetHashCode();
         }
 
         public override string ToString() => Name;

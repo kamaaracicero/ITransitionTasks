@@ -11,7 +11,7 @@ namespace CourseWork.DataAccess.EntityTypeConfigurations
             builder.ToTable(nameof(CollectionItemTag)).HasKey(item => item.Id);
             builder.HasIndex(item => item.Id).IsUnique();
             builder.Property(item => item.CollectionItemId).IsRequired();
-            builder.Property(item => item.Name).HasMaxLength(100).IsRequired();
+            builder.Property(item => item.TagId).IsRequired();
         }
     }
 }

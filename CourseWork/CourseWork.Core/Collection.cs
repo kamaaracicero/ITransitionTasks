@@ -12,7 +12,7 @@
         }
 
         public Collection()
-            : this(0, null, null, 0, null)
+            : this(0, string.Empty, string.Empty, 0, string.Empty)
         {
         }
 
@@ -44,6 +44,7 @@
         }
 
         public override int GetHashCode() => Id
+            ^ UserId.GetHashCode()
             ^ Title.GetHashCode()
             ^ Description.GetHashCode()
             ^ CollectionThemeId
@@ -56,12 +57,7 @@
                 return false;
             }
 
-            if (obj.GetHashCode() == this.GetHashCode())
-            {
-                return true;
-            }
-
-            return false;
+            return obj.GetHashCode() == GetHashCode();
         }
 
         public override string ToString() => Title;
