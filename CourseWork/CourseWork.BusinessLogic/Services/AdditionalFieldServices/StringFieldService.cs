@@ -1,7 +1,9 @@
 ﻿using CourseWork.BusinessLogic.Exceptions;
+using CourseWork.BusinessLogic.Services.Results;
 using CourseWork.Core.AdditionalFields;
 using CourseWork.DataAccess.DbContexts;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -18,32 +20,82 @@ namespace CourseWork.BusinessLogic.Services.AdditionalFieldServices
             _dbContext = dbContext;
         }
 
-        public async Task DeleteAsync(StringField entity, CancellationToken cancellationToken = default)
+        public async Task<ServiceResult> DeleteAsync(StringField entity,
+            CancellationToken cancellationToken = default)
         {
-            _dbContext.StringFields.Remove(entity);
-            await _dbContext.SaveChangesAsync(cancellationToken);
-        }
-
-        public async Task InsertAsync(StringField entity, CancellationToken cancellationToken = default)
-        {
-            await _dbContext.StringFields.AddAsync(entity, cancellationToken);
-            await _dbContext.SaveChangesAsync(cancellationToken);
-        }
-
-        public async Task<IEnumerable<StringField>> SelectAsync(CancellationToken cancellationToken = default)
-            => await _dbContext.StringFields.Select(a => a).ToListAsync(cancellationToken);
-
-        public async Task UpdateAsync(StringField entity, CancellationToken cancellationToken = default)
-        {
-            StringField res = await _dbContext.StringFields.FirstOrDefaultAsync(item => item.Id == entity.Id,
-                cancellationToken);
-            if (res == null)
+            ServiceResult res = new ServiceResult();
+            try
             {
-                throw new NotFoundException(nameof(StringField), entity.Id);
+                _dbContext.StringFields.Remove(entity);
+                await _dbContext.SaveChangesAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                res.Successfully = false;
+                res.Errors.Add(new ServiceError(ex.Message));
             }
 
-            res.Update(entity);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            return res;
+        }
+
+        public async Task<ServiceResult> InsertAsync(StringField entity,
+            CancellationToken cancellationToken = default)
+        {
+            ServiceResult res = new ServiceResult();
+            try
+            {
+                await _dbContext.StringFields.AddAsync(entity, cancellationToken);
+                await _dbContext.SaveChangesAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                res.Successfully = false;
+                res.Errors.Add(new ServiceError(ex.Message));
+            }
+
+            return res;
+        }
+
+        public async Task<ServiceResult<IEnumerable<StringField>>> SelectAsync(
+            CancellationToken cancellationToken = default)
+        {
+            ServiceResult<IEnumerable<StringField>> res = new ServiceResult<IEnumerable<StringField>>();
+            try
+            {
+                res.Value = await _dbContext.StringFields.Select(a => a).ToListAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                res.Successfully = false;
+                res.Errors.Add(new ServiceError(ex.Message));
+            }
+
+            return res;
+        }
+
+        public async Task<ServiceResult> UpdateAsync(StringField entity,
+            CancellationToken cancellationToken = default)
+        {
+            ServiceResult res = new ServiceResult();
+            try
+            {
+                StringField stringField = await _dbContext.StringFields.FirstOrDefaultAsync(item
+                    => item.Id == entity.Id, cancellationToken);
+                if (stringField == null)
+                {
+                    throw new NotFoundException(nameof(StringField), entity.Id);
+                }
+
+                stringField.Update(entity);
+                await _dbContext.SaveChangesAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                res.Successfully = false;
+                res.Errors.Add(new ServiceError(ex.Message));
+            }
+
+            return res;
         }
     }
 }

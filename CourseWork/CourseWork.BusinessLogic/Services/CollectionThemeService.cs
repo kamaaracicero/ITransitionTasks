@@ -1,7 +1,9 @@
 ﻿using CourseWork.BusinessLogic.Exceptions;
+using CourseWork.BusinessLogic.Services.Results;
 using CourseWork.Core;
 using CourseWork.DataAccess.DbContexts;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -18,32 +20,82 @@ namespace CourseWork.BusinessLogic.Services
             _dbContext = dbContext;
         }
 
-        public async Task DeleteAsync(CollectionTheme entity, CancellationToken cancellationToken = default)
+        public async Task<ServiceResult> DeleteAsync(CollectionTheme entity,
+            CancellationToken cancellationToken = default)
         {
-            _dbContext.CollectionThemes.Remove(entity);
-            await _dbContext.SaveChangesAsync(cancellationToken);
-        }
-
-        public async Task InsertAsync(CollectionTheme entity, CancellationToken cancellationToken = default)
-        {
-            await _dbContext.CollectionThemes.AddAsync(entity, cancellationToken);
-            await _dbContext.SaveChangesAsync(cancellationToken);
-        }
-
-        public async Task<IEnumerable<CollectionTheme>> SelectAsync(CancellationToken cancellationToken = default)
-            => await _dbContext.CollectionThemes.Select(a => a).ToListAsync(cancellationToken);
-
-        public async Task UpdateAsync(CollectionTheme entity, CancellationToken cancellationToken = default)
-        {
-            CollectionTheme res = await _dbContext.CollectionThemes.FirstOrDefaultAsync(item
-                => item.Id == entity.Id, cancellationToken);
-            if (res == null)
+            ServiceResult res = new ServiceResult();
+            try
             {
-                throw new NotFoundException(nameof(CollectionTheme), entity.Id);
+                _dbContext.CollectionThemes.Remove(entity);
+                await _dbContext.SaveChangesAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                res.Successfully = false;
+                res.Errors.Add(new ServiceError(ex.Message));
             }
 
-            res.Update(entity);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            return res;
+        }
+
+        public async Task<ServiceResult> InsertAsync(CollectionTheme entity,
+            CancellationToken cancellationToken = default)
+        {
+            ServiceResult res = new ServiceResult();
+            try
+            {
+                await _dbContext.CollectionThemes.AddAsync(entity, cancellationToken);
+                await _dbContext.SaveChangesAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                res.Successfully = false;
+                res.Errors.Add(new ServiceError(ex.Message));
+            }
+
+            return res;
+        }
+
+        public async Task<ServiceResult<IEnumerable<CollectionTheme>>> SelectAsync(
+            CancellationToken cancellationToken = default)
+        {
+            ServiceResult<IEnumerable<CollectionTheme>> res = new ServiceResult<IEnumerable<CollectionTheme>>();
+            try
+            {
+                res.Value = await _dbContext.CollectionThemes.Select(a => a).ToListAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                res.Successfully = false;
+                res.Errors.Add(new ServiceError(ex.Message));
+            }
+
+            return res;
+        }
+
+        public async Task<ServiceResult> UpdateAsync(CollectionTheme entity,
+            CancellationToken cancellationToken = default)
+        {
+            ServiceResult res = new ServiceResult();
+            try
+            {
+                CollectionTheme theme = await _dbContext.CollectionThemes.FirstOrDefaultAsync(item
+                    => item.Id == entity.Id, cancellationToken);
+                if (theme == null)
+                {
+                    throw new NotFoundException(nameof(CollectionTheme), entity.Id);
+                }
+
+                theme.Update(entity);
+                await _dbContext.SaveChangesAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                res.Successfully = false;
+                res.Errors.Add(new ServiceError(ex.Message));
+            }
+
+            return res;
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using CourseWork.BusinessLogic.Exceptions;
+using CourseWork.BusinessLogic.Services.Results;
 using CourseWork.Core.AdditionalFields;
 using CourseWork.DataAccess.DbContexts;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -18,32 +20,83 @@ namespace CourseWork.BusinessLogic.Services.AdditionalFieldServices
             _dbContext = dbContext;
         }
 
-        public async Task DeleteAsync(BooleanField entity, CancellationToken cancellationToken = default)
+        public async Task<ServiceResult> DeleteAsync(BooleanField entity,
+            CancellationToken cancellationToken = default)
         {
-            _dbContext.BooleanFields.Remove(entity);
-            await _dbContext.SaveChangesAsync(cancellationToken);
-        }
-
-        public async Task InsertAsync(BooleanField entity, CancellationToken cancellationToken = default)
-        {
-            await _dbContext.BooleanFields.AddAsync(entity, cancellationToken);
-            await _dbContext.SaveChangesAsync(cancellationToken);
-        }
-
-        public async Task<IEnumerable<BooleanField>> SelectAsync(CancellationToken cancellationToken = default)
-            => await _dbContext.BooleanFields.Select(a => a).ToListAsync(cancellationToken);
-
-        public async Task UpdateAsync(BooleanField entity, CancellationToken cancellationToken = default)
-        {
-            BooleanField res = await _dbContext.BooleanFields.FirstOrDefaultAsync(item => item.Id == entity.Id,
-                cancellationToken);
-            if (res == null)
+            ServiceResult res = new ServiceResult();
+            try
             {
-                throw new NotFoundException(nameof(BooleanField), entity.Id);
+                _dbContext.BooleanFields.Remove(entity);
+                await _dbContext.SaveChangesAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                res.Successfully = false;
+                res.Errors.Add(new ServiceError(ex.Message));
             }
 
-            res.Update(entity);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            return res;
         }
+
+        public async Task<ServiceResult> InsertAsync(BooleanField entity,
+            CancellationToken cancellationToken = default)
+        {
+            ServiceResult res = new ServiceResult();
+            try
+            {
+                await _dbContext.BooleanFields.AddAsync(entity, cancellationToken);
+                await _dbContext.SaveChangesAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                res.Successfully = false;
+                res.Errors.Add(new ServiceError(ex.Message));
+            }
+
+            return res;
+        }
+
+        public async Task<ServiceResult<IEnumerable<BooleanField>>> SelectAsync(
+            CancellationToken cancellationToken = default)
+        {
+            ServiceResult<IEnumerable<BooleanField>> res = new ServiceResult<IEnumerable<BooleanField>>();
+            try
+            {
+                res.Value = await _dbContext.BooleanFields.Select(a => a).ToListAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                res.Successfully = false;
+                res.Errors.Add(new ServiceError(ex.Message));
+            }
+
+            return res;
+        }
+
+        public async Task<ServiceResult> UpdateAsync(BooleanField entity,
+            CancellationToken cancellationToken = default)
+        {
+            ServiceResult res = new ServiceResult();
+            try
+            {
+                BooleanField booleanField = await _dbContext.BooleanFields.FirstOrDefaultAsync(item
+                    => item.Id == entity.Id, cancellationToken);
+                if (booleanField == null)
+                {
+                    throw new NotFoundException(nameof(BooleanField), entity.Id);
+                }
+
+                booleanField.Update(entity);
+                await _dbContext.SaveChangesAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                res.Successfully = false;
+                res.Errors.Add(new ServiceError(ex.Message));
+            }
+
+            return res;
+        }
+
     }
 }

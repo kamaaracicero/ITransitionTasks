@@ -1,7 +1,9 @@
 ﻿using CourseWork.BusinessLogic.Exceptions;
+using CourseWork.BusinessLogic.Services.Results;
 using CourseWork.Core.AdditionalFields;
 using CourseWork.DataAccess.DbContexts;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -18,32 +20,82 @@ namespace CourseWork.BusinessLogic.Services.AdditionalFieldServices
             _dbContext = dbContext;
         }
 
-        public async Task DeleteAsync(TextField entity, CancellationToken cancellationToken = default)
+        public async Task<ServiceResult> DeleteAsync(TextField entity,
+            CancellationToken cancellationToken = default)
         {
-            _dbContext.TextFields.Remove(entity);
-            await _dbContext.SaveChangesAsync(cancellationToken);
-        }
-
-        public async Task InsertAsync(TextField entity, CancellationToken cancellationToken = default)
-        {
-            await _dbContext.TextFields.AddAsync(entity, cancellationToken);
-            await _dbContext.SaveChangesAsync(cancellationToken);
-        }
-
-        public async Task<IEnumerable<TextField>> SelectAsync(CancellationToken cancellationToken = default)
-            => await _dbContext.TextFields.Select(a => a).ToListAsync(cancellationToken);
-
-        public async Task UpdateAsync(TextField entity, CancellationToken cancellationToken = default)
-        {
-            TextField res = await _dbContext.TextFields.FirstOrDefaultAsync(item => item.Id == entity.Id,
-                cancellationToken);
-            if (res == null)
+            ServiceResult res = new ServiceResult();
+            try
             {
-                throw new NotFoundException(nameof(TextField), entity.Id);
+                _dbContext.TextFields.Remove(entity);
+                await _dbContext.SaveChangesAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                res.Successfully = false;
+                res.Errors.Add(new ServiceError(ex.Message));
             }
 
-            res.Update(entity);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            return res;
+        }
+
+        public async Task<ServiceResult> InsertAsync(TextField entity,
+            CancellationToken cancellationToken = default)
+        {
+            ServiceResult res = new ServiceResult();
+            try
+            {
+                await _dbContext.TextFields.AddAsync(entity, cancellationToken);
+                await _dbContext.SaveChangesAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                res.Successfully = false;
+                res.Errors.Add(new ServiceError(ex.Message));
+            }
+
+            return res;
+        }
+
+        public async Task<ServiceResult<IEnumerable<TextField>>> SelectAsync(
+            CancellationToken cancellationToken = default)
+        {
+            ServiceResult<IEnumerable<TextField>> res = new ServiceResult<IEnumerable<TextField>>();
+            try
+            {
+                res.Value = await _dbContext.TextFields.Select(a => a).ToListAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                res.Successfully = false;
+                res.Errors.Add(new ServiceError(ex.Message));
+            }
+
+            return res;
+        }
+
+        public async Task<ServiceResult> UpdateAsync(TextField entity,
+            CancellationToken cancellationToken = default)
+        {
+            ServiceResult res = new ServiceResult();
+            try
+            {
+                TextField textField = await _dbContext.TextFields.FirstOrDefaultAsync(item
+                    => item.Id == entity.Id, cancellationToken);
+                if (textField == null)
+                {
+                    throw new NotFoundException(nameof(TextField), entity.Id);
+                }
+
+                textField.Update(entity);
+                await _dbContext.SaveChangesAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                res.Successfully = false;
+                res.Errors.Add(new ServiceError(ex.Message));
+            }
+
+            return res;
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using CourseWork.BusinessLogic.Exceptions;
+using CourseWork.BusinessLogic.Services.Results;
 using CourseWork.Core.UsersActivity;
 using CourseWork.DataAccess.DbContexts;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -18,32 +20,82 @@ namespace CourseWork.BusinessLogic.Services.UserAcitivityServices
             _dbContext = dbContext;
         }
 
-        public async Task DeleteAsync(UserLike entity, CancellationToken cancellationToken = default)
+        public async Task<ServiceResult> DeleteAsync(UserLike entity,
+            CancellationToken cancellationToken = default)
         {
-            _dbContext.UserLikes.Remove(entity);
-            await _dbContext.SaveChangesAsync(cancellationToken);
-        }
-
-        public async Task InsertAsync(UserLike entity, CancellationToken cancellationToken = default)
-        {
-            await _dbContext.UserLikes.AddAsync(entity, cancellationToken);
-            await _dbContext.SaveChangesAsync(cancellationToken);
-        }
-
-        public async Task<IEnumerable<UserLike>> SelectAsync(CancellationToken cancellationToken = default)
-            => await _dbContext.UserLikes.Select(a => a).ToListAsync(cancellationToken);
-
-        public async Task UpdateAsync(UserLike entity, CancellationToken cancellationToken = default)
-        {
-            UserLike res = await _dbContext.UserLikes.FirstOrDefaultAsync(item => item.Id == entity.Id,
-                cancellationToken);
-            if (res == null)
+            ServiceResult res = new ServiceResult();
+            try
             {
-                throw new NotFoundException(nameof(UserLike), entity.Id);
+                _dbContext.UserLikes.Remove(entity);
+                await _dbContext.SaveChangesAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                res.Successfully = false;
+                res.Errors.Add(new ServiceError(ex.Message));
             }
 
-            res.Update(entity);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            return res;
+        }
+
+        public async Task<ServiceResult> InsertAsync(UserLike entity,
+            CancellationToken cancellationToken = default)
+        {
+            ServiceResult res = new ServiceResult();
+            try
+            {
+                await _dbContext.UserLikes.AddAsync(entity, cancellationToken);
+                await _dbContext.SaveChangesAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                res.Successfully = false;
+                res.Errors.Add(new ServiceError(ex.Message));
+            }
+
+            return res;
+        }
+
+        public async Task<ServiceResult<IEnumerable<UserLike>>> SelectAsync(
+            CancellationToken cancellationToken = default)
+        {
+            ServiceResult<IEnumerable<UserLike>> res = new ServiceResult<IEnumerable<UserLike>>();
+            try
+            {
+                res.Value = await _dbContext.UserLikes.Select(a => a).ToListAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                res.Successfully = false;
+                res.Errors.Add(new ServiceError(ex.Message));
+            }
+
+            return res;
+        }
+
+        public async Task<ServiceResult> UpdateAsync(UserLike entity,
+            CancellationToken cancellationToken = default)
+        {
+            ServiceResult res = new ServiceResult();
+            try
+            {
+                UserLike userLike = await _dbContext.UserLikes.FirstOrDefaultAsync(item
+                    => item.Id == entity.Id, cancellationToken);
+                if (userLike == null)
+                {
+                    throw new NotFoundException(nameof(UserLike), entity.Id);
+                }
+
+                userLike.Update(entity);
+                await _dbContext.SaveChangesAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                res.Successfully = false;
+                res.Errors.Add(new ServiceError(ex.Message));
+            }
+
+            return res;
         }
     }
 }

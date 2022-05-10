@@ -7,8 +7,8 @@ namespace CourseWork.Core.Identity
         public WebUser()
             : base()
         {
-            FirstName = null;
-            SecondName = null;
+            FirstName = string.Empty;
+            SecondName = string.Empty;
         }
 
         public string FirstName { get; set; }

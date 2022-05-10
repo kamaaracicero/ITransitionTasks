@@ -10,6 +10,7 @@ namespace CourseWork.DataAccess.EntityTypeConfigurations
         {
             builder.ToTable(nameof(Collection)).HasKey(item => item.Id);
             builder.HasIndex(item => item.Id).IsUnique();
+            builder.Property(item => item.UserId).HasMaxLength(450).IsRequired();
             builder.Property(item => item.Title).HasMaxLength(100).IsRequired();
             builder.Property(item => item.Description).HasMaxLength(500).IsRequired();
             builder.Property(item => item.CollectionThemeId).IsRequired();

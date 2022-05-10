@@ -18,6 +18,8 @@
 
         public int Id { get; set; }
 
+        public string UserId { get; set; }
+
         public string Title { get; set; }
 
         public string Description { get; set; }
@@ -34,6 +36,7 @@
             }
 
             Collection temp = update as Collection;
+            UserId = temp.UserId;
             Title = temp.Title;
             Description = temp.Description;
             CollectionThemeId = temp.CollectionThemeId;

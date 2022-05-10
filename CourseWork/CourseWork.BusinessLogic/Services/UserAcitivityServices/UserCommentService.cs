@@ -1,7 +1,9 @@
 ﻿using CourseWork.BusinessLogic.Exceptions;
+using CourseWork.BusinessLogic.Services.Results;
 using CourseWork.Core.UsersActivity;
 using CourseWork.DataAccess.DbContexts;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -18,32 +20,82 @@ namespace CourseWork.BusinessLogic.Services.UserAcitivityServices
             _dbContext = dbContext;
         }
 
-        public async Task DeleteAsync(UserComment entity, CancellationToken cancellationToken = default)
+        public async Task<ServiceResult> DeleteAsync(UserComment entity,
+            CancellationToken cancellationToken = default)
         {
-            _dbContext.UserComments.Remove(entity);
-            await _dbContext.SaveChangesAsync(cancellationToken);
-        }
-
-        public async Task InsertAsync(UserComment entity, CancellationToken cancellationToken = default)
-        {
-            await _dbContext.UserComments.AddAsync(entity, cancellationToken);
-            await _dbContext.SaveChangesAsync(cancellationToken);
-        }
-
-        public async Task<IEnumerable<UserComment>> SelectAsync(CancellationToken cancellationToken = default)
-            => await _dbContext.UserComments.Select(a => a).ToListAsync(cancellationToken);
-
-        public async Task UpdateAsync(UserComment entity, CancellationToken cancellationToken = default)
-        {
-            UserComment res = await _dbContext.UserComments.FirstOrDefaultAsync(item => item.Id == entity.Id,
-                cancellationToken);
-            if (res == null)
+            ServiceResult res = new ServiceResult();
+            try
             {
-                throw new NotFoundException(nameof(UserComment), entity.Id);
+                _dbContext.UserComments.Remove(entity);
+                await _dbContext.SaveChangesAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                res.Successfully = false;
+                res.Errors.Add(new ServiceError(ex.Message));
             }
 
-            res.Update(entity);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            return res;
+        }
+
+        public async Task<ServiceResult> InsertAsync(UserComment entity,
+            CancellationToken cancellationToken = default)
+        {
+            ServiceResult res = new ServiceResult();
+            try
+            {
+                await _dbContext.UserComments.AddAsync(entity, cancellationToken);
+                await _dbContext.SaveChangesAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                res.Successfully = false;
+                res.Errors.Add(new ServiceError(ex.Message));
+            }
+
+            return res;
+        }
+
+        public async Task<ServiceResult<IEnumerable<UserComment>>> SelectAsync(
+            CancellationToken cancellationToken = default)
+        {
+            ServiceResult<IEnumerable<UserComment>> res = new ServiceResult<IEnumerable<UserComment>>();
+            try
+            {
+                res.Value = await _dbContext.UserComments.Select(a => a).ToListAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                res.Successfully = false;
+                res.Errors.Add(new ServiceError(ex.Message));
+            }
+
+            return res;
+        }
+
+        public async Task<ServiceResult> UpdateAsync(UserComment entity,
+            CancellationToken cancellationToken = default)
+        {
+            ServiceResult res = new ServiceResult();
+            try
+            {
+                UserComment userComment = await _dbContext.UserComments.FirstOrDefaultAsync(item
+                    => item.Id == entity.Id, cancellationToken);
+                if (userComment == null)
+                {
+                    throw new NotFoundException(nameof(UserComment), entity.Id);
+                }
+
+                userComment.Update(entity);
+                await _dbContext.SaveChangesAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                res.Successfully = false;
+                res.Errors.Add(new ServiceError(ex.Message));
+            }
+
+            return res;
         }
     }
 }

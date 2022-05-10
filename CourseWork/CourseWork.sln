@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CourseWork.DataAccess", "Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CourseWork.Core", "CourseWork.Core\CourseWork.Core.csproj", "{E7E76E9C-CDCC-4DFC-A96E-42A1D9C1DE26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseWork.BusinessLogic", "CourseWork.BusinessLogic\CourseWork.BusinessLogic.csproj", "{A6437524-D5E9-475F-8C7B-F8732FFC8016}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CourseWork.BusinessLogic", "CourseWork.BusinessLogic\CourseWork.BusinessLogic.csproj", "{A6437524-D5E9-475F-8C7B-F8732FFC8016}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseWork.Web", "CourseWork.Web\CourseWork.Web.csproj", "{144EAA73-C73D-417D-8DA3-74FB696B4EE0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{A6437524-D5E9-475F-8C7B-F8732FFC8016}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6437524-D5E9-475F-8C7B-F8732FFC8016}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6437524-D5E9-475F-8C7B-F8732FFC8016}.Release|Any CPU.Build.0 = Release|Any CPU
+		{144EAA73-C73D-417D-8DA3-74FB696B4EE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{144EAA73-C73D-417D-8DA3-74FB696B4EE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{144EAA73-C73D-417D-8DA3-74FB696B4EE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{144EAA73-C73D-417D-8DA3-74FB696B4EE0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

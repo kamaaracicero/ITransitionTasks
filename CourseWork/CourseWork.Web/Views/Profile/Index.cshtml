@@ -1,0 +1,58 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+@model ProfileViewModel
+
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                <span class="font-weight-bold">@Model.ToString()</span>
+                <span class="text-black-50">@Model.UserName</span>
+                <span> </span>
+            </div>
+        </div>
+        <div class="col-md-5 border-right">
+            <form method="post" asp-controller="Profile" asp-action="SaveProfile">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">@Localizer["ProfileSettings"]</h4>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-6">
+                            <label class="form-label" asp-for="@Model.FirstName">@Localizer["FirstName"]</label>
+                            <input type="text" asp-for="@Model.FirstName" class="form-control">
+                            <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" asp-for="@Model.SecondName">@Localizer["SecondName"]</label>
+                            <input type="text" asp-for="@Model.SecondName" class="form-control">
+                            <span asp-validation-for="@Model.SecondName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <input type="hidden" asp-for="@Model.Id" />
+                        <div class="col-md-12">
+                            <label class="form-label" asp-for="@Model.UserName">@Localizer["Username"]</label>
+                            <input type="text" asp-for="@Model.UserName" class="form-control">
+                            <span asp-validation-for="@Model.UserName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <input type="hidden" asp-for="@Model.Id" />
+                    </div>
+                    <div class="mt-5 text-center">
+                        <button class="btn btn-primary" type="submit">@Localizer["SaveProfile"]</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <div class="p-3 py-5">
+                <div class="mt-5 text-center">
+                    <a class="btn btn-primary" asp-controller="Profile" asp-action="EditPassword" asp-route-id="@Model.Id">@Localizer["EditPassword"]</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

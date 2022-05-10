@@ -1,0 +1,21 @@
+﻿@model CollectionsViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+<div class="jumbotron">
+    <h1>@Localizer["ViewTitle"]</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>@Localizer["Image"]</th>
+                <th>@Localizer["CollectionTitle"]</th>
+                <th>@Localizer["Theme"]</th>
+                <th>@Localizer["Author"]</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</div>

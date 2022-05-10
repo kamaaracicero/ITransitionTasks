@@ -1,0 +1,18 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+<form method="post" asp-controller="Profile">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-12 col-lg-4">
+                <p>@Localizer["AreYouSure"]</p>
+
+                <p>
+                    <button class="btn btn-primary" asp-action="LogoutUser">@Localizer["Yes"]</button>
+                    <button class="btn btn-light ml-5 border-dark" asp-action="DontLogoutUser">@Localizer["No"]</button>
+                </p>
+            </div>
+        </div>
+    </div>
+</form>
