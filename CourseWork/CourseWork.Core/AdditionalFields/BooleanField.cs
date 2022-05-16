@@ -1,6 +1,6 @@
 ﻿namespace CourseWork.Core.AdditionalFields
 {
-    public sealed class BooleanField : object, IDataEntity
+    public sealed class BooleanField : object, IDataEntity, IAdditionalField
     {
         public BooleanField(int id, int collectionItemId, string name, bool value)
         {
@@ -35,6 +35,10 @@
             Name = temp.Name;
             Value = temp.Value;
         }
+
+        public string GetFieldName() => Name;
+
+        public object GetFieldValue() => Value;
 
         public override int GetHashCode() => Id
             ^ CollectionItemId

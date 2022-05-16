@@ -117,17 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Author" xml:space="preserve">
+  <data name="CollectionAuthor" xml:space="preserve">
     <value>Автор</value>
   </data>
-  <data name="CollectionTitle" xml:space="preserve">
-    <value>Заголовок</value>
+  <data name="CollectionDescription" xml:space="preserve">
+    <value>Описание</value>
   </data>
-  <data name="Image" xml:space="preserve">
-    <value>Картинка</value>
+  <data name="CollectionImage" xml:space="preserve">
+    <value>Изображение</value>
   </data>
-  <data name="Theme" xml:space="preserve">
+  <data name="CollectionTheme" xml:space="preserve">
     <value>Тема</value>
+  </data>
+  <data name="CollectionTitle" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Выбрать</value>
   </data>
   <data name="ViewTitle" xml:space="preserve">
     <value>Коллекции</value>

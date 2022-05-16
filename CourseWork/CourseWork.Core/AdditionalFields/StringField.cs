@@ -1,6 +1,6 @@
 ﻿namespace CourseWork.Core.AdditionalFields
 {
-    public sealed class StringField : object, IDataEntity
+    public sealed class StringField : object, IDataEntity, IAdditionalField
     {
         public StringField(int id, int collectionItemId, string name, string value)
         {
@@ -35,6 +35,10 @@
             Name = temp.Name;
             Value = temp.Value;
         }
+
+        public string GetFieldName() => Name;
+
+        public object GetFieldValue() => Value;
 
         public override int GetHashCode() => Id
             ^ CollectionItemId

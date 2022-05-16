@@ -1,0 +1,105 @@
+﻿@model CourseWork.Web.Models.Collections.CreateCollectionViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+<div class="container mt-5">
+    <div class="row justify-content-center align-items-center">
+        <div>
+            <form asp-controller="Collections" asp-action="Create" method="post" enctype="multipart/form-data">
+                <div class="col-sm-12 col-mb-12 col-lg-4">
+                    <h3 class="mb-3">@Localizer["ViewTitle"]</h3>
+                    <div class="form-group">
+                        <label class="form-label" asp-for="@Model.Title">@Localizer["Title"]</label>
+                        <input type="text" asp-for="@Model.Title" class="form-control" />
+                        <span asp-validation-for="@Model.Title" class="text-danger"></span>
+                    </div>
+                    <div class="mb-2 form-group">
+                        <label class="form-label" asp-for="@Model.Decription">@Localizer["Decription"]</label>
+                        <input type="text" asp-for="@Model.Decription" class="form-control" />
+                        <span asp-validation-for="@Model.Decription" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" asp-for="@Model.Theme">@Localizer["Theme"]</label>
+                        <input type="number" asp-for="@Model.Theme" class="form-control" list="layouts">
+                        <datalist id="layouts">
+                            @foreach (var item in Model.PossibleThemes)
+                            {
+                                <option value="@item.Id">@item.Theme</option>
+                            }
+                        </datalist>
+                        <span asp-validation-for="@Model.Theme" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.ImageFile" class="control-label"></label>
+                        <input asp-for="@Model.ImageFile" accept="image/*" />
+                        <span asp-validation-for="@Model.ImageFile" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>@Localizer["BooleanFieldNames"]</label>
+                    <div class="row">
+                        <div class="col-4">
+                            <input type="text" asp-for="@Model.Boolean1FieldName" class="form-control" />
+                        </div>
+                        <div class="col-4">
+                            <input type="text" asp-for="@Model.Boolean2FieldName" class="form-control" />
+                        </div>
+                        <div class="col-4">
+                            <input type="text" asp-for="@Model.Boolean3FieldName" class="form-control" />
+                        </div>
+                    </div>
+                    <label>@Localizer["DateFieldNames"]</label>
+                    <div class="row">
+                        <div class="col-4">
+                            <input type="text" asp-for="@Model.Date1FieldName" class="form-control" />
+                        </div>
+                        <div class="col-4">
+                            <input type="text" asp-for="@Model.Date2FieldName" class="form-control" />
+                        </div>
+                        <div class="col-4">
+                            <input type="text" asp-for="@Model.Date3FieldName" class="form-control" />
+                        </div>
+                    </div>
+                    <label>@Localizer["IntFieldNames"]</label>
+                    <div class="row">
+                        <div class="col-4">
+                            <input type="text" asp-for="@Model.Int1FieldName" class="form-control" />
+                        </div>
+                        <div class="col-4">
+                            <input type="text" asp-for="@Model.Int2FieldName" class="form-control" />
+                        </div>
+                        <div class="col-4">
+                            <input type="text" asp-for="@Model.Int3FieldName" class="form-control" />
+                        </div>
+                    </div>
+                    <label>@Localizer["StringFieldNames"]</label>
+                    <div class="row">
+                        <div class="col-4">
+                            <input type="text" asp-for="@Model.String1FieldName" class="form-control" />
+                        </div>
+                        <div class="col-4">
+                            <input type="text" asp-for="@Model.String2FieldName" class="form-control" />
+                        </div>
+                        <div class="col-4">
+                            <input type="text" asp-for="@Model.String3FieldName" class="form-control" />
+                        </div>
+                    </div>
+                    <label>@Localizer["TextFieldNames"]</label>
+                    <div class="row">
+                        <div class="col-4">
+                            <input type="text" asp-for="@Model.Text1FieldName" class="form-control" />
+                        </div>
+                        <div class="col-4">
+                            <input type="text" asp-for="@Model.Text2FieldName" class="form-control" />
+                        </div>
+                        <div class="col-4">
+                            <input type="text" asp-for="@Model.Text3FieldName" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">@Localizer["Create"]</button>
+            </form>
+        </div>
+    </div>
+</div>

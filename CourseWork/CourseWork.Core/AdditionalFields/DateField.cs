@@ -1,6 +1,6 @@
 ﻿namespace CourseWork.Core.AdditionalFields
 {
-    public sealed class DateField : object, IDataEntity
+    public sealed class DateField : object, IDataEntity, IAdditionalField
     {
         public DateField(int id, int collectionItemId, string name, System.DateTime value)
         {
@@ -35,6 +35,10 @@
             Name = temp.Name;
             Value = temp.Value;
         }
+
+        public string GetFieldName() => Name;
+
+        public object GetFieldValue() => Value;
 
         public override int GetHashCode() => Id
             ^ CollectionItemId

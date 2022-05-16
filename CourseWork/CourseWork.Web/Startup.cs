@@ -1,3 +1,4 @@
+using CourseWork.BusinessLogic.DependencyInjection;
 using CourseWork.Core.Identity;
 using CourseWork.DataAccess.DbContexts;
 using CourseWork.DataAccess.DependencyInjection;
@@ -24,6 +25,7 @@ namespace CourseWork.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDataAccess(Configuration);
+            services.AddBusinessLogic(Configuration);
             services.AddIdentity<WebUser, WebRole>().AddEntityFrameworkStores<AuthDbContext>();
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddMvc(options => options.EnableEndpointRouting = false)

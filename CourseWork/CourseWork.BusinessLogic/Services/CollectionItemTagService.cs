@@ -1,12 +1,11 @@
 ﻿using CourseWork.BusinessLogic.Exceptions;
-using CourseWork.BusinessLogic.Services.Results;
+using CourseWork.BusinessLogic.ServiceResults;
 using CourseWork.Core;
 using CourseWork.DataAccess.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

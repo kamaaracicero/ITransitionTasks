@@ -1,5 +1,6 @@
 ﻿using CourseWork.BusinessLogic.Exceptions;
-using CourseWork.BusinessLogic.Services.Results;
+using CourseWork.BusinessLogic.ServiceResults;
+using CourseWork.BusinessLogic.Validation;
 using CourseWork.Core.AdditionalFields;
 using CourseWork.DataAccess.DbContexts;
 using Microsoft.EntityFrameworkCore;
@@ -13,11 +14,15 @@ namespace CourseWork.BusinessLogic.Services.AdditionalFieldServices
 {
     internal class DateFieldService : IService<DateField>
     {
-        private readonly MainDbContext _dbContext;
+        public const string CountExceptionMessage = "The element already has 3 date fields assigned";
 
-        public DateFieldService(MainDbContext dbContext)
+        private readonly MainDbContext _dbContext;
+        private readonly CountValidation _validation;
+
+        public DateFieldService(MainDbContext dbContext, CountValidation validation)
         {
             _dbContext = dbContext;
+            _validation = validation;
         }
 
         public async Task<ServiceResult> DeleteAsync(DateField entity,
@@ -42,6 +47,12 @@ namespace CourseWork.BusinessLogic.Services.AdditionalFieldServices
             CancellationToken cancellationToken = default)
         {
             ServiceResult res = new ServiceResult();
+            if (!_validation.CheckCount(entity, _dbContext.DateFields, 0, 3))
+            {
+                res.Successfully = false;
+                res.Errors.Add(new ServiceError(CountExceptionMessage));
+                return res;
+            }
             try
             {
                 await _dbContext.DateFields.AddAsync(entity, cancellationToken);

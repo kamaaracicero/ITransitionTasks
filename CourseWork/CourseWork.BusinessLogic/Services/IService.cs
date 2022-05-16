@@ -1,4 +1,4 @@
-﻿using CourseWork.BusinessLogic.Services.Results;
+﻿using CourseWork.BusinessLogic.ServiceResults;
 using CourseWork.Core;
 using System.Collections.Generic;
 using System.Threading;
@@ -9,12 +9,12 @@ namespace CourseWork.BusinessLogic.Services
     public interface IService<TEntity>
         where TEntity : IDataEntity
     {
-        Task<ServiceResult> InsertAsync(TEntity entity, CancellationToken cancellationToken);
+        Task<ServiceResult> InsertAsync(TEntity entity, CancellationToken cancellationToken = default);
 
-        Task<ServiceResult> UpdateAsync(TEntity entity, CancellationToken cancellationToken);
+        Task<ServiceResult> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
 
-        Task<ServiceResult> DeleteAsync(TEntity entity, CancellationToken cancellationToken);
+        Task<ServiceResult> DeleteAsync(TEntity entity, CancellationToken cancellationToken = default);
 
-        Task<ServiceResult<IEnumerable<TEntity>>> SelectAsync(CancellationToken cancellationToken);
+        Task<ServiceResult<IEnumerable<TEntity>>> SelectAsync(CancellationToken cancellationToken = default);
     }
 }

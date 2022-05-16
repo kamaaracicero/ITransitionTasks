@@ -41,6 +41,6 @@
             return obj.GetHashCode() == GetHashCode();
         }
 
-        public override string ToString() => Name;
+        public override string ToString() => Theme;
     }
 }

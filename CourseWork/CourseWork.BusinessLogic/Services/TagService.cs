@@ -1,5 +1,5 @@
 ﻿using CourseWork.BusinessLogic.Exceptions;
-using CourseWork.BusinessLogic.Services.Results;
+using CourseWork.BusinessLogic.ServiceResults;
 using CourseWork.Core;
 using CourseWork.DataAccess.DbContexts;
 using Microsoft.EntityFrameworkCore;

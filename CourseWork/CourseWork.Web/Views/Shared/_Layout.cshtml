@@ -26,6 +26,9 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Collections" asp-action="Index">Collections</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Tags" asp-action="Index">Tags</a>
+                            </li>
                         </ul>
                         <ul class="navbar-nav d-flex justify-content-end flex-grow-1">
                             <li class="nav-item">
@@ -65,6 +68,11 @@
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2022 - CourseWork.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            @if (SignInManager.IsSignedIn(User) && User.IsInRole("admin"))
+            {
+                <a asp-area="" asp-controller="Roles" asp-action="Index">Roles</a>
+            }
+            @await Html.PartialAsync("_SelectLanguagePartial")
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

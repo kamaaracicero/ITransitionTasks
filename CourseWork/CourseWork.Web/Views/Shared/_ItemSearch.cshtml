@@ -1,0 +1,10 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+<form asp-controller="Items" asp-action="Index">
+    <p>
+        @Localizer["Search"] <input type="text" name="searchString"/>
+        <input type="submit" value="@Localizer["Button"]"/>
+    </p>
+</form>

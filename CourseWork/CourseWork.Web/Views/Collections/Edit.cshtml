@@ -1,0 +1,44 @@
+﻿@model CourseWork.Web.Models.Collections.EditCollectionViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+<div class="container mt-5">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-sm-12 col-mb-12 col-lg-4">
+            <form asp-controller="Collections" asp-action="Edit" method="post" enctype="multipart/form-data">
+                <h3 class="mb-3">@Localizer["ViewTitle"]</h3>
+                <input type="hidden" asp-for="@Model.Id"/>
+                <input type="hidden" asp-for="@Model.UserId"/>
+
+                <div class="form-group">
+                    <label class="form-label" asp-for="@Model.Title">@Localizer["Title"]</label>
+                    <input type="text" asp-for="@Model.Title" class="form-control" />
+                    <span asp-validation-for="@Model.Title" class="text-danger"></span>
+                </div>
+                <div class="mb-2 form-group">
+                    <label class="form-label" asp-for="@Model.Decription">@Localizer["Decription"]</label>
+                    <input type="text" asp-for="@Model.Decription" class="form-control" />
+                    <span asp-validation-for="@Model.Decription" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" asp-for="@Model.Theme">@Localizer["Theme"]</label>
+                    <input type="number" asp-for="@Model.Theme" class="form-control" list="layouts">
+                    <datalist id="layouts">
+                        @foreach (var item in Model.PossibleThemes)
+                        {
+                            <option value="@item.Id">@item.Theme</option>
+                        }
+                    </datalist>
+                    <span asp-validation-for="@Model.Theme" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.ImageFile" class="control-label"></label>
+                    <input asp-for="@Model.ImageFile" accept="image/*" />
+                    <span asp-validation-for="@Model.ImageFile" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">@Localizer["Edit"]</button>
+            </form>
+        </div>
+    </div>
+</div>

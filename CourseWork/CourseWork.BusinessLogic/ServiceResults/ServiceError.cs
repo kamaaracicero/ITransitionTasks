@@ -1,4 +1,4 @@
-﻿namespace CourseWork.BusinessLogic.Services.Results
+﻿namespace CourseWork.BusinessLogic.ServiceResults
 {
     public class ServiceError
     {

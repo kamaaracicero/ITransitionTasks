@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CourseWork.DataAccess.EntityTypeConfigurations
+namespace CourseWork.DataAccess.EntityTypeConfigurations.UsersActivity
 {
     internal class UserLikeConfiguration : IEntityTypeConfiguration<UserLike>
     {

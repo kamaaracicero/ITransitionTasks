@@ -41,6 +41,8 @@ namespace CourseWork.DataAccess.DbContexts
 
         public DbSet<Tag> Tags { get; set; }
 
+        public DbSet<ImageSize> ImageSizes { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new BooleanFieldConfiguration());
@@ -56,6 +58,7 @@ namespace CourseWork.DataAccess.DbContexts
             builder.ApplyConfiguration(new CollectionItemTagConfiguration());
             builder.ApplyConfiguration(new CollectionThemeConfiguration());
             builder.ApplyConfiguration(new TagConfiguration());
+            builder.ApplyConfiguration(new ImageSizeConfiguration());
             base.OnModelCreating(builder);
         }
     }

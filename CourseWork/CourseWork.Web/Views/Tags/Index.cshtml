@@ -1,0 +1,26 @@
+﻿@model CourseWork.Web.Models.Tags.TagsViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+<h2>@Localizer["Tags"]</h2>
+<div class="row">
+    <div class="col-6">@await Html.PartialAsync("_ItemSearch")</div>
+</div>
+<form asp-controller="Tags" asp-action="AddTag">
+    <p>
+        @Localizer["AddTag"] <input type="text" name="tagName" />
+        <input type="submit" value="@Localizer["Add"]" />
+    </p>
+</form>
+<table class="table">
+    @foreach (var tag in Model.Tags)
+    {
+        <tr>
+            <td>@tag.Name</td>
+            <td>
+                <a asp-controller="Tags" asp-action="RemoveTag" asp-route-tagId="@tag.Id" class="btn btn-danger">@Localizer["Remove"]</a>
+            </td>
+        </tr>
+    }
+</table>

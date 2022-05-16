@@ -1,9 +1,18 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CourseWork.Web.Models
+namespace CourseWork.Web.Models.Profile
 {
     public class RegisterViewModel
     {
+        public RegisterViewModel()
+        {
+            FirstName = string.Empty;
+            SecondName = string.Empty;
+            UserName = string.Empty;
+            Password = string.Empty;
+            ConfirmPassword = string.Empty;
+        }
+
         [Required]
         [DataType(DataType.Text)]
         public string FirstName { get; set; }

@@ -1,11 +1,7 @@
 ﻿using CourseWork.Core.Identity;
-using CourseWork.Web.Models;
-using Microsoft.AspNetCore.Authorization;
+using CourseWork.Web.Models.Profile;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CourseWork.Web.Controllers

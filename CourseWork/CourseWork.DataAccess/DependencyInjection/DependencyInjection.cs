@@ -16,7 +16,6 @@ namespace CourseWork.DataAccess.DependencyInjection
             {
                 options.UseSqlServer(connectionString);
             });
-            services.AddScoped(provider => provider.GetService<MainDbContext>());
 
             services.AddDbContext<AuthDbContext>(options =>
             {

@@ -112,6 +112,48 @@
 
         public string Text3FieldName { get; set; }
 
+        public System.Collections.Generic.List<string> GetSpecifiedFields()
+        {
+            System.Collections.Generic.List<string> fields = new System.Collections.Generic.List<string>();
+            if (Boolean1FieldRequired)
+                fields.Add(Boolean1FieldName);
+            if (Boolean2FieldRequired)
+                fields.Add(Boolean2FieldName);
+            if (Boolean3FieldRequired)
+                fields.Add(Boolean3FieldName);
+
+            if (Date1FieldRequired)
+                fields.Add(Date1FieldName);
+            if (Date2FieldRequired)
+                fields.Add(Date2FieldName);
+            if (Date3FieldRequired)
+                fields.Add(Date3FieldName);
+
+            if (Int1FieldRequired)
+                fields.Add(Int1FieldName);
+            if (Int2FieldRequired)
+                fields.Add(Int2FieldName);
+            if (Int3FieldRequired)
+                fields.Add(Int3FieldName);
+
+            if (String1FieldRequired)
+                fields.Add(String1FieldName);
+            if (String2FieldRequired)
+                fields.Add(String2FieldName);
+            if (String3FieldRequired)
+                fields.Add(String3FieldName);
+
+            if (Text1FieldRequired)
+                fields.Add(Text1FieldName);
+            if (Text2FieldRequired)
+                fields.Add(Text2FieldName);
+            if (Text3FieldRequired)
+                fields.Add(Text3FieldName);
+
+
+            return fields;
+        }
+
         public void Update(object update)
         {
             if (update == null || !(update is CollectionRequiredFields))

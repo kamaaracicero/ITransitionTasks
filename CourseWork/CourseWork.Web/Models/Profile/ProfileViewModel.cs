@@ -1,6 +1,6 @@
 ﻿using CourseWork.Core.Identity;
 
-namespace CourseWork.Web.Models
+namespace CourseWork.Web.Models.Profile
 {
     public class ProfileViewModel
     {

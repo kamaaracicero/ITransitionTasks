@@ -75,7 +75,7 @@
     <Build Include="Tables\AdditionalFields\StringField.sql" />
     <Build Include="Tables\AdditionalFields\TextField.sql" />
     <Build Include="Tables\CollectionItem.sql" />
-    <Build Include="Tables\CollectionItemTag.sql" />
+    <Build Include="Tables\Tag.sql" />
     <Build Include="Tables\CollectionTheme.sql" />
     <Build Include="Tables\UsersActivity\UserComment.sql" />
     <Build Include="Tables\UsersActivity\UserLike.sql" />
@@ -100,7 +100,6 @@
     <Build Include="Index\Identity\RoleNameIndex.sql" />
     <Build Include="Index\Identity\UserNameIndex.sql" />
     <Build Include="ForeignKeys\FK_CollectionItem_Collection_CollectionId.sql" />
-    <Build Include="ForeignKeys\FK_CollectionItemTag_CollectionItem_CollectionItemId.sql" />
     <Build Include="ForeignKeys\UsersActivity\FK_UserComment_AspNetUsers_UserId.sql" />
     <Build Include="ForeignKeys\UsersActivity\FK_UserComment_CollectionItem_CollectionItemId.sql" />
     <Build Include="ForeignKeys\UsersActivity\FK_UserLike_AspNetUsers_UserId.sql" />
@@ -111,5 +110,13 @@
     <Build Include="ForeignKeys\AdditionalFields\FK_TextField_CollectionItem_CollectionItemId.sql" />
     <Build Include="ForeignKeys\FK_Collection_CollectionTheme_CollectionThemeId.sql" />
     <Build Include="Tables\AdditionalFields\IntField.sql" />
+    <Build Include="Tables\CollectionItemTag.sql" />
+    <Build Include="Tables\CollectionRequiredFields.sql" />
+    <Build Include="ForeignKeys\FK_CollectionItemTag_Tag_TagId.sql" />
+    <Build Include="ForeignKeys\FK_CollectionItemTag_CollectionItem_CollectionItemId.sql" />
+    <Build Include="ForeignKeys\FK_CollectionRequiredFields_Collection_CollectionId.sql" />
+    <Build Include="ForeignKeys\AdditionalFields\FK_IntField_ColletionItem_CollectionItemId.sql" />
+    <Build Include="Tables\ImageSize.sql" />
+    <Build Include="ForeignKeys\FK_ImageSize_Collection_CollectionId.sql" />
   </ItemGroup>
 </Project>

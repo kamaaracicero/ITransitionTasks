@@ -1,0 +1,37 @@
+﻿@model CourseWork.Web.Models.Items.ItemsViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+<div>
+    <div class="row">
+        <div class="col-6">@await Html.PartialAsync("_ItemSearch")</div>
+        <div class="col-6"><a class="btn btn-primary" asp-controller="Items" asp-action="Create" asp-route-collectionId="@Model.CollectionId">@Localizer["Create"]</a></div>
+    </div>
+    <div class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item m-1">@Localizer["Fields"]</li>
+                @foreach (var field in Model.Fields)
+                {
+                    <li class="nav-item m-1">@Html.DisplayFor(view => field)</li>
+                }
+            </ul>
+        </div>
+    </div>
+    @foreach (var item in Model.Items)
+    {
+        <a class="list-group-item list-group-item-action flex-column align-items-start"
+           asp-controller="Item" asp-action="Index" asp-route-itemId="@item.Id">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">@Html.DisplayFor(view => item.Name)</h5>
+            </div>
+
+            <div class="d-flex w-100 justify-content-between">
+                <small>@Localizer["Likes"] @Html.DisplayFor(view => @item.Likes)</small>
+                <small>@Localizer["Comments"] @Html.DisplayFor(view => item.Comments)</small>
+            </div>
+        </a>
+        <a asp-controller="Items" asp-action="DeleteItem" asp-route-itemId="@item.Id" asp-route-returnUrl="@Context.Request.Path">@Localizer["Delete"]</a>
+    }
+</div>

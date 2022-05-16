@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CourseWork.DataAccess.EntityTypeConfigurations
+namespace CourseWork.DataAccess.EntityTypeConfigurations.AdditionalFields
 {
     internal class BooleanFieldConfiguration : IEntityTypeConfiguration<BooleanField>
     {

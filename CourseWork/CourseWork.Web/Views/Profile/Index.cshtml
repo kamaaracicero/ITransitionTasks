@@ -51,6 +51,7 @@
             <div class="p-3 py-5">
                 <div class="mt-5 text-center">
                     <a class="btn btn-primary" asp-controller="Profile" asp-action="EditPassword" asp-route-id="@Model.Id">@Localizer["EditPassword"]</a>
+                    <a class="btn btn-primary" asp-controller="Collections" asp-action="Index" asp-route-userId="@Model.Id">@Localizer["SeeCollections"]</a>
                 </div>
             </div>
         </div>

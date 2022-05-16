@@ -1,0 +1,30 @@
+﻿@model IEnumerable<CourseWork.Core.Identity.WebRole>
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+<h2>@Localizer["ListOfRoles"]</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Localizer["Role"]</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var role in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => role.Name)</td>
+                <td>
+                    <form asp-action="Delete" asp-route-id="@role.Id" method="post">
+                        <button class="btn btn-sm btn-danger" type="submit">@Localizer["Delete"]</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-action="Create">@Localizer["CreateNew"]</a>
+<a asp-action="UserList" method="get">@Localizer["Users"]</a>

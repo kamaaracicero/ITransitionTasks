@@ -1,0 +1,162 @@
+﻿@model CourseWork.Web.Models.Items.CreateItemViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+<div class="container mt-5">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-sm-12 col-mb-12 col-lg-4">
+            <form asp-controller="Items" asp-action="Create" method="post">
+                <h3 class="mb-3">@Localizer["ViewTitle"]</h3>
+                <input asp-for="@Model.CollectionId" type="hidden" />
+
+                <div class="form-group">
+                    <label class="form-label" asp-for="@Model.Name">@Localizer["Title"]</label>
+                    <input type="text" asp-for="@Model.Name" class="form-control" />
+                    <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                </div>
+
+                @if (Model.Boolean1FieldRequired)
+                {
+                    <input asp-for="@Model.Boolean1FieldRequired" type="hidden" />
+                    <div class="form-group">
+                        <label class="form-label" asp-for="@Model.Boolean1FieldName">@Model.Boolean1FieldName</label>
+                        <input asp-for="@Model.Boolean1FieldName" type="hidden" />
+                        <input type="checkbox" asp-for="@Model.Boolean1FieldValue" class="form-control" />
+                    </div>
+                }
+                @if (Model.Boolean2FieldRequired)
+                {
+                    <input asp-for="@Model.Boolean2FieldRequired" type="hidden" />
+                    <div class="form-group">
+                        <label class="form-label" asp-for="@Model.Boolean2FieldName">@Model.Boolean2FieldName</label>
+                        <input asp-for="@Model.Boolean2FieldName" type="hidden" />
+                        <input type="checkbox" asp-for="@Model.Boolean2FieldValue" class="form-control" />
+                    </div>
+                }
+                @if (Model.Boolean3FieldRequired)
+                {
+                    <input asp-for="@Model.Boolean3FieldRequired" type="hidden" />
+                    <div class="form-group">
+                        <label class="form-label" asp-for="@Model.Boolean3FieldName">@Model.Boolean3FieldName</label>
+                        <input asp-for="@Model.Boolean3FieldName" type="hidden" />
+                        <input type="checkbox" asp-for="@Model.Boolean3FieldValue" class="form-control" />
+                    </div>
+                }
+
+                @if (Model.Date1FieldRequired)
+                {
+                    <input asp-for="@Model.Date1FieldRequired" type="hidden" />
+                    <div class="form-group">
+                        <label class="form-label" asp-for="@Model.Date1FieldName">@Model.Date1FieldName</label>
+                        <input asp-for="@Model.Date1FieldName" type="hidden" />
+                        <input type="datetime" asp-for="@Model.Date1FieldValue" class="form-control" />
+                    </div>
+                }
+                @if (Model.Date2FieldRequired)
+                {
+                    <input asp-for="@Model.Date2FieldRequired" type="hidden" />
+                    <div class="form-group">
+                        <label class="form-label" asp-for="@Model.Date2FieldName">@Model.Date2FieldName</label>
+                        <input asp-for="@Model.Date2FieldName" type="hidden" />
+                        <input type="datetime" asp-for="@Model.Date2FieldValue" class="form-control" />
+                    </div>
+                }
+                @if (Model.Date3FieldRequired)
+                {
+                    <input asp-for="@Model.Date3FieldRequired" type="hidden" />
+                    <div class="form-group">
+                        <label class="form-label" asp-for="@Model.Date3FieldName">@Model.Date3FieldName</label>
+                        <input asp-for="@Model.Date3FieldName" type="hidden" />
+                        <input type="datetime" asp-for="@Model.Date3FieldValue" class="form-control" />
+                    </div>
+                }
+
+                @if (Model.Int1FieldRequired)
+                {
+                    <input asp-for="@Model.Int1FieldRequired" type="hidden" />
+                    <div class="form-group">
+                        <label class="form-label" asp-for="@Model.Int1FieldName">@Model.Int1FieldName</label>
+                        <input asp-for="@Model.Int1FieldName" type="hidden" />
+                        <input type="datetime" asp-for="@Model.Int1FieldValue" class="form-control" />
+                    </div>
+                }
+                @if (Model.Int2FieldRequired)
+                {
+                    <input asp-for="@Model.Int2FieldRequired" type="hidden" />
+                    <div class="form-group">
+                        <label class="form-label" asp-for="@Model.Int2FieldName">@Model.Int2FieldName</label>
+                        <input asp-for="@Model.Int2FieldName" type="hidden" />
+                        <input type="datetime" asp-for="@Model.Int2FieldValue" class="form-control" />
+                    </div>
+                }
+                @if (Model.Int3FieldRequired)
+                {
+                    <input asp-for="@Model.Int3FieldRequired" type="hidden" />
+                    <div class="form-group">
+                        <label class="form-label" asp-for="@Model.Int3FieldName">@Model.Int3FieldName</label>
+                        <input asp-for="@Model.Int3FieldName" type="hidden" />
+                        <input type="datetime" asp-for="@Model.Int3FieldValue" class="form-control" />
+                    </div>
+                }
+
+                @if (Model.String1FieldRequired)
+                {
+                    <input asp-for="@Model.String1FieldRequired" type="hidden" />
+                    <div class="form-group">
+                        <label class="form-label" asp-for="@Model.String1FieldName">@Model.String1FieldName</label>
+                        <input asp-for="@Model.String1FieldName" type="hidden" />
+                        <input type="datetime" asp-for="@Model.String1FieldValue" class="form-control" />
+                    </div>
+                }
+                @if (Model.String2FieldRequired)
+                {
+                    <input asp-for="@Model.String2FieldRequired" type="hidden" />
+                    <div class="form-group">
+                        <label class="form-label" asp-for="@Model.String2FieldName">@Model.String2FieldName</label>
+                        <input asp-for="@Model.String2FieldName" type="hidden" />
+                        <input type="datetime" asp-for="@Model.String2FieldValue" class="form-control" />
+                    </div>
+                }
+                @if (Model.String3FieldRequired)
+                {
+                    <input asp-for="@Model.String3FieldRequired" type="hidden" />
+                    <div class="form-group">
+                        <label class="form-label" asp-for="@Model.String3FieldName">@Model.String3FieldName</label>
+                        <input asp-for="@Model.String3FieldName" type="hidden" />
+                        <input type="datetime" asp-for="@Model.String3FieldValue" class="form-control" />
+                    </div>
+                }
+
+                @if (Model.Text1FieldRequired)
+                {
+                    <input asp-for="@Model.Text1FieldRequired" type="hidden" />
+                    <div class="form-group">
+                        <label class="form-label" asp-for="@Model.Text1FieldName">@Model.Text1FieldName</label>
+                        <input asp-for="@Model.Text1FieldName" type="hidden" />
+                        <input type="datetime" asp-for="@Model.Text1FieldValue" class="form-control" />
+                    </div>
+                }
+                @if (Model.Text2FieldRequired)
+                {
+                    <input asp-for="@Model.Text2FieldRequired" type="hidden" />
+                    <div class="form-group">
+                        <label class="form-label" asp-for="@Model.Text2FieldName">@Model.Text2FieldName</label>
+                        <input asp-for="@Model.Text2FieldName" type="hidden" />
+                        <input type="datetime" asp-for="@Model.Text2FieldValue" class="form-control" />
+                    </div>
+                }
+                @if (Model.Text3FieldRequired)
+                {
+                    <input asp-for="@Model.Text3FieldRequired" type="hidden" />
+                    <div class="form-group">
+                        <label class="form-label" asp-for="@Model.Text3FieldName">@Model.Text3FieldName</label>
+                        <input asp-for="@Model.Text3FieldName" type="hidden" />
+                        <input type="datetime" asp-for="@Model.Text3FieldValue" class="form-control" />
+                    </div>
+                }
+                <button type="submit" class="btn btn-primary">@Localizer["Create"]</button>
+            </form>
+        </div>
+    </div>
+</div>
