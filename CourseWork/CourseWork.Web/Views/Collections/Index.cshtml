@@ -25,20 +25,21 @@
         <tbody>
             @foreach (var collection in Model.Collections)
             {
-                <tr>
-                    <td><img src="@collection.Image" alt="" height="@collection.ImageHeight" width="@collection.ImageWidth" /></td>
-                    <td>@Html.DisplayFor(item => collection.Theme)</td>
-                    <td>@Html.DisplayFor(item => collection.Title)</td>
-                    <td>@Html.DisplayFor(item => collection.Description)</td>
-                    <td>@Html.DisplayFor(item => collection.Author)</td>
-                    <td>
-                        <a asp-action="Index" asp-controller="Items" asp-route-collectionId="@collection.Id">@Localizer["Select"]</a>
-                        @if (SignInManager.IsSignedIn(User) || User.IsInRole("admin") || UserManager.GetUserName(User) == collection.Author)
-                        {
-                            <a asp-action="Edit" asp-controller="Collections" asp-route-collectionId="@collection.Id">@Localizer["Edit"]</a>
-                        }
-                    </td>
-                </tr>
+            <tr>
+                <td><img src="@collection.Image" alt="" height="@collection.ImageHeight" width="@collection.ImageWidth" /></td>
+                <td>@Html.DisplayFor(item => collection.Theme)</td>
+                <td>@Html.DisplayFor(item => collection.Title)</td>
+                <td>@Html.DisplayFor(item => collection.Description)</td>
+                <td>@Html.DisplayFor(item => collection.Author)</td>
+                <td>
+                    <a asp-action="Index" asp-controller="Items" asp-route-collectionId="@collection.Id">@Localizer["Select"]</a>
+                    @if (SignInManager.IsSignedIn(User) || User.IsInRole("admin") || UserManager.GetUserName(User) == collection.Author)
+                    {
+                        <a asp-action="Edit" asp-controller="Collections" asp-route-collectionId="@collection.Id">@Localizer["Edit"]</a>
+                        <a asp-action="Delete" asp-controller="Collections" asp-route-collectionId="@collection.Id">@Localizer["Delete"]</a>
+                    }
+                </td>
+            </tr>
             }
         </tbody>
     </table>

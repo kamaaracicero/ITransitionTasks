@@ -22,15 +22,12 @@ namespace CourseWork.Web.Controllers
 
         private readonly UserManager<WebUser> _userManager;
 
-        private readonly RoleManager<WebRole> _roleManager;
-
         public CollectionsController(IService<Collection> collectionService,
             IService<CollectionTheme> collectionThemeService,
             IService<CollectionRequiredFields> collectionRequiredFields,
             IService<ImageSize> imageSizeService,
             IConverter<IFormFile, string> imageConvert,
-            UserManager<WebUser> userManager,
-            RoleManager<WebRole> roleManager)
+            UserManager<WebUser> userManager)
         {
             _collectionService = collectionService;
             _collectionThemeService = collectionThemeService;
@@ -38,15 +35,12 @@ namespace CourseWork.Web.Controllers
             _imageSizeService = imageSizeService;
             _imageConvert = imageConvert;
 
-            _roleManager = roleManager;
             _userManager = userManager;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index(string userId = null)
         {
-            await _roleManager.CreateAsync(new WebRole { Name = "admin" });
-            await _roleManager.CreateAsync(new WebRole { Name = "user" });
             if (string.IsNullOrEmpty(userId))
             {
                 return await SeeCommonCollections();
@@ -129,7 +123,6 @@ namespace CourseWork.Web.Controllers
             }
         }
 
-        [HttpPost]
         public async Task<IActionResult> Create([Bind] CreateCollectionViewModel viewModel)
         {
             if (ModelState.IsValid)
@@ -143,45 +136,23 @@ namespace CourseWork.Web.Controllers
                     CollectionThemeId = viewModel.Theme,
                 };
                 var collectionRes = await _collectionService.InsertAsync(collection);
-                var imageRes = await _imageSizeService.InsertAsync(new ImageSize(0, collection.Id, 50, 50));
+                var imageRes = await _imageSizeService.InsertAsync(new ImageSize(0, collection.Id, 150, 150));
                 var fieldsRes = await _collectionRequiredFields.InsertAsync(viewModel.ConvertToRequired(collection.Id));
             }
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Edit(int collectionId)
+        public async Task<IActionResult> Delete(int collectionId)
         {
             var collections = await _collectionService.SelectAsync();
-            var themes = await _collectionThemeService.SelectAsync();
-            if (!collections.Successfully || !themes.Successfully)
-            {
+            if (!collections.Successfully)
                 return BadRequest();
-            }
-            return View(new EditCollectionViewModel(collections.Value.First(c => c.Id == collectionId), themes.Value));
-        }
 
-        [HttpPost]
-        public async Task<IActionResult> Edit([Bind] EditCollectionViewModel viewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                var collections = await _collectionService.SelectAsync();
-                if (!collections.Successfully)
-                {
-                    return BadRequest();
-                }
-                var collection = collections.Value.First(c => c.Id == viewModel.Id);
-                collection.Update(new Collection
-                {
-                    UserId = viewModel.UserId,
-                    Title = viewModel.Title,
-                    Description = viewModel.Decription,
-                    CollectionThemeId = viewModel.Theme,
-                    Image = _imageConvert.Convert(viewModel.ImageFile),
-                });
-                var res = await _collectionService.UpdateAsync(collection);
-            }
+            var collection = collections.Value.FirstOrDefault(c => c.Id == collectionId);
+            if (collection == default)
+                return BadRequest();
+
+            var res = await _collectionService.DeleteAsync(collection);
             return RedirectToAction(nameof(Index));
         }
     }

@@ -132,10 +132,13 @@
   <data name="CollectionTitle" xml:space="preserve">
     <value>Title</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
   <data name="Select" xml:space="preserve">
     <value>Select</value>
-  </data>
-  <data name="ViewTitle" xml:space="preserve">
-    <value>Collections</value>
   </data>
 </root>
