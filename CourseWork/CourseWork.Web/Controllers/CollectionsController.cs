@@ -142,6 +142,53 @@ namespace CourseWork.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(int collectionId)
+        {
+            var themes = await _collectionThemeService.SelectAsync();
+            var collections = await _collectionService.SelectAsync();
+            if (!themes.Successfully || !collections.Successfully)
+            {
+                return BadRequest();
+            }
+
+            var collection = collections.Value.FirstOrDefault(c => c.Id == collectionId);
+            if (collection is null)
+                return BadRequest();
+
+            return View(new EditCollectionViewModel(collection, themes.Value));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit([Bind] EditCollectionViewModel viewModel)
+        {
+            Collection collection = new Collection
+            {
+                Id = viewModel.Id,
+                UserId = viewModel.UserId,
+                CollectionThemeId = viewModel.Theme,
+                Description = viewModel.Decription,
+                Title = viewModel.Title,
+                Image = _imageConvert.Convert(viewModel.ImageFile),
+            };
+
+            var collections = await _collectionService.SelectAsync();
+            if (!collections.Successfully)
+            {
+                return BadRequest();
+            }
+
+            var bdCollection = collections.Value.FirstOrDefault(c => c.Id == collection.Id);
+            if (bdCollection is null)
+            {
+                return BadRequest();
+            }
+            bdCollection.Update(collection);
+            var res = await _collectionService.UpdateAsync(bdCollection);
+
+            return RedirectToAction(nameof(Index));
+        }
+
         public async Task<IActionResult> Delete(int collectionId)
         {
             var collections = await _collectionService.SelectAsync();
