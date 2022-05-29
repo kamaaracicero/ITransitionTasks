@@ -19,21 +19,18 @@ namespace CourseWork.Web.Controllers
         private readonly ItemFieldsService _itemFieldsService;
         private readonly UserManager<WebUser> _userManager;
         private readonly IService<CollectionItem> _collectionItemService;
-        private readonly IService<CollectionItemTag> _collectionItemTagService;
         private readonly IService<Tag> _tagService;
 
         public ItemController(UserActivityService userActivityService,
             ItemFieldsService itemFieldsService,
             UserManager<WebUser> userManager,
             IService<CollectionItem> collectionItemService,
-            IService<CollectionItemTag> collectionItemTagService,
             IService<Tag> tagService)
         {
             _userActivityService = userActivityService;
             _itemFieldsService = itemFieldsService;
             _userManager = userManager;
             _collectionItemService = collectionItemService;
-            _collectionItemTagService = collectionItemTagService;
             _tagService = tagService;
         }
 
@@ -42,13 +39,11 @@ namespace CourseWork.Web.Controllers
             var items = await _collectionItemService.SelectAsync();
             var likes = await _userActivityService.GetLikes();
             var comments = await _userActivityService.GetComments();
-            var itemTags = await _collectionItemTagService.SelectAsync();
             var tags = await _tagService.SelectAsync();
             var fields = await _itemFieldsService.GetItemFields(itemId);
             if (!items.Successfully
                 || !likes.Successfully
                 || !comments.Successfully
-                || !itemTags.Successfully
                 || !tags.Successfully
                 || !fields.Successfully)
             {
@@ -61,11 +56,6 @@ namespace CourseWork.Web.Controllers
                 var user = await _userManager.FindByIdAsync(comment.UserId);
                 commentsView.Add(new UserCommentViewModel(user, comment));
             }
-            List<Tag> tagsView = new List<Tag>();
-            foreach (var itemTag in itemTags.Value.Where(i => i.CollectionItemId == itemId))
-            {
-                tagsView.Add(tags.Value.First(t => t.Id == itemTag.TagId));
-            }
             return View(new ItemViewModel
             {
                 Id = itemId,
@@ -73,7 +63,7 @@ namespace CourseWork.Web.Controllers
                 Name = items.Value.First(i => i.Id == itemId).Name,
                 Comments = commentsView,
                 Fields = fields.Value.ToList(),
-                Tags = tagsView,
+                Tags = tags.Value.Where(t => t.CollectionItemId == itemId).ToList(),
             });
         }
 
@@ -107,17 +97,8 @@ namespace CourseWork.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddTag(int itemId, string tagName)
         {
-            var tags = await _tagService.SelectAsync();
-            if (!tags.Successfully)
-            {
-                return BadRequest();
-            }
+            var res = await _tagService.InsertAsync(new Tag(0, tagName, itemId));
 
-            var tag = tags.Value.FirstOrDefault(t => t.Name == tagName);
-            if (tag != default)
-            {
-                var res = await _collectionItemTagService.InsertAsync(new CollectionItemTag(0, itemId, tag.Id));
-            }
             return RedirectToAction(nameof(Index), new { itemId = itemId });
         }
     }

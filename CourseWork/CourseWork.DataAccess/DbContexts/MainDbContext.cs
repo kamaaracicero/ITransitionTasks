@@ -35,8 +35,6 @@ namespace CourseWork.DataAccess.DbContexts
 
         public DbSet<CollectionItem> CollectionItems { get; set; }
 
-        public DbSet<CollectionItemTag> CollectionItemTags { get; set; }
-
         public DbSet<CollectionTheme> CollectionThemes { get; set; }
 
         public DbSet<Tag> Tags { get; set; }
@@ -55,7 +53,6 @@ namespace CourseWork.DataAccess.DbContexts
             builder.ApplyConfiguration(new CollectionConfiguration());
             builder.ApplyConfiguration(new CollectionRequiredFieldsConfiguration());
             builder.ApplyConfiguration(new CollectionItemConfiguration());
-            builder.ApplyConfiguration(new CollectionItemTagConfiguration());
             builder.ApplyConfiguration(new CollectionThemeConfiguration());
             builder.ApplyConfiguration(new TagConfiguration());
             builder.ApplyConfiguration(new ImageSizeConfiguration());

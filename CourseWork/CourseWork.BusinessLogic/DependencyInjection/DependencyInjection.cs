@@ -34,7 +34,6 @@ namespace CourseWork.BusinessLogic.DependencyInjection
             services.AddScoped<IService<Collection>, CollectionService>();
             services.AddScoped<IService<CollectionTheme>, CollectionThemeService>();
             services.AddScoped<IService<CollectionItem>, CollectionItemService>();
-            services.AddScoped<IService<CollectionItemTag>, CollectionItemTagService>();
             services.AddScoped<IService<CollectionRequiredFields>, CollectionRequiredFieldsService>();
             services.AddScoped<IService<ImageSize>, ImageSizeService>();
             services.AddScoped<IService<Tag>, TagService>();

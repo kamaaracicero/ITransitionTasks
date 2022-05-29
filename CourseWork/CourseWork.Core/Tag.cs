@@ -2,20 +2,23 @@
 {
     public sealed class Tag : object, IDataEntity
     {
-        public Tag(int id, string name)
+        public Tag(int id, string name, int collectionItemId)
         {
             Id = id;
             Name = name;
+            CollectionItemId = collectionItemId;
         }
 
         public Tag()
-            : this(0, string.Empty)
+            : this(0, string.Empty, 0)
         {
         }
 
         public int Id { get; set; }
 
         public string Name { get; set; }
+
+        public int CollectionItemId { get; set; }
 
         public void Update(object update)
         {
@@ -29,7 +32,8 @@
         }
 
         public override int GetHashCode() => Id
-            ^ Name.GetHashCode();
+            ^ Name.GetHashCode()
+            ^ CollectionItemId;
 
         public override bool Equals(object obj)
         {

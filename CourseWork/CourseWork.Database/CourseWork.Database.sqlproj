@@ -111,12 +111,11 @@
     <Build Include="ForeignKeys\FK_Collection_CollectionTheme_CollectionThemeId.sql" />
     <Build Include="Tables\AdditionalFields\IntField.sql" />
     <Build Include="Tables\CollectionItemTag.sql" />
-    <Build Include="Tables\CollectionRequiredFields.sql" />
-    <Build Include="ForeignKeys\FK_CollectionItemTag_Tag_TagId.sql" />
-    <Build Include="ForeignKeys\FK_CollectionItemTag_CollectionItem_CollectionItemId.sql" />
     <Build Include="ForeignKeys\FK_CollectionRequiredFields_Collection_CollectionId.sql" />
     <Build Include="ForeignKeys\AdditionalFields\FK_IntField_ColletionItem_CollectionItemId.sql" />
     <Build Include="Tables\ImageSize.sql" />
     <Build Include="ForeignKeys\FK_ImageSize_Collection_CollectionId.sql" />
+    <Build Include="ForeignKeys\FK_Tag_CollectionItem_CollectionItemId.sql" />
+    <Build Include="Tables\CollectionRequiredFields.sql" />
   </ItemGroup>
 </Project>
